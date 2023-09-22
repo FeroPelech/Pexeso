@@ -1,5 +1,6 @@
 import "./App.css";
 import { useState } from "react";
+import SinglePicture from "./components/SinglePicture";
 
 const images = [
   { src: "/img/Bukayo.png" },
@@ -29,6 +30,11 @@ function App() {
     <div className="App">
       <h1>Pexeso</h1>
       <button onClick={doubleImages}>New Game</button>
+      <div className="picture-grid">
+        {pictures.map((picture) => (
+          <SinglePicture key={picture.id} picture={picture} />
+        ))}
+      </div>
     </div>
   );
 }
