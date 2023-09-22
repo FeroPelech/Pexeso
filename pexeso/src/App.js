@@ -44,7 +44,7 @@ function App() {
         });
         resetTurn();
       } else {
-        resetTurn();
+        setTimeout(() => resetTurn(), 1000);
       }
     }
   }, [firstChoice, secondChoice]);
@@ -66,6 +66,11 @@ function App() {
             key={picture.id}
             picture={picture}
             handleChoice={handleChoice}
+            flipped={
+              picture === firstChoice ||
+              picture === secondChoice ||
+              picture.matched
+            }
           />
         ))}
       </div>

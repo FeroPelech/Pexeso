@@ -1,13 +1,13 @@
 import "./SinglePicture.css";
 
-export default function SinglePicture({ picture, handleChoice }) {
+export default function SinglePicture({ picture, handleChoice, flipped }) {
   const handleClick = () => {
     handleChoice(picture);
   };
 
   return (
     <div className="photo">
-      <div>
+      <div className={flipped ? "flipped" : ""}>
         <img
           className="front"
           src={picture.src}
