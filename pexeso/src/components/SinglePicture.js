@@ -1,8 +1,15 @@
 import "./SinglePicture.css";
 
-export default function SinglePicture({ picture, handleChoice, flipped }) {
+export default function SinglePicture({
+  picture,
+  handleChoice,
+  flipped,
+  disabled,
+}) {
   const handleClick = () => {
-    handleChoice(picture);
+    if (!disabled) {
+      handleChoice(picture);
+    }
   };
 
   return (

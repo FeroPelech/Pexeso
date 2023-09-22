@@ -16,12 +16,14 @@ function App() {
   const [turns, setTurns] = useState(0);
   const [firstChoice, setFirstChoice] = useState(null);
   const [secondChoice, setSecondChoice] = useState(null);
-  let prevTurns = turns;
+  const [disabled, setDisabled] = useState(false);
 
   const doubleImages = () => {
     const doubledImages = [...images, ...images]
       .sort(() => Math.random() - 0.5)
       .map((image) => ({ ...image, id: Math.random() }));
+    setFirstChoice(null);
+    setSecondChoice(null);
     setPictures(doubledImages);
     setTurns(0);
   };
@@ -32,6 +34,7 @@ function App() {
 
   useEffect(() => {
     if (firstChoice && secondChoice) {
+      setDisabled(true);
       if (firstChoice.src === secondChoice.src) {
         setPictures((prevPictures) => {
           return prevPictures.map((picture) => {
@@ -49,12 +52,15 @@ function App() {
     }
   }, [firstChoice, secondChoice]);
 
-  console.log(pictures);
+  useEffect(() => {
+    doubleImages();
+  }, []);
 
   const resetTurn = () => {
     setFirstChoice(null);
     setSecondChoice(null);
-    setTurns((prevTurns) => prevTurns++);
+    setTurns((prevTurns) => prevTurns + 1);
+    setDisabled(false);
   };
   return (
     <div className="App">
@@ -71,9 +77,11 @@ function App() {
               picture === secondChoice ||
               picture.matched
             }
+            disabled={disabled}
           />
         ))}
       </div>
+      <p>Turns: {turns}</p>
     </div>
   );
 }
